@@ -1,0 +1,21 @@
+<div class="container mt-5 p-4 bg-gray-400 rounded shadow-lg">
+    <h1 class="text-3xl">internal serverl error</h1>
+    @if(error){
+        <h5 class="text-red-500">Error:{{error.message}}</h5>
+        <p class="font-bold m-2">Note:if you are seeing this then angular is probably not to blame</p>
+        <p class="m-2">what to do next?</p>
+        <ol class="list-decimal list-inside">
+            <li>Open chrome dev tools</li>
+            <li>Inspect the network tab</li>
+            <li>Check the failing request</li>
+            <li>Examine the request URL - make sure it is correct</li>
+            <li>Reproduce the error in Postman - if we the same response in Postman, then the issue is not with Angular</li>
+            
+
+        </ol>
+        <p class="m-2">Following is the stack trace - this is where your investigation should start!</p>
+        <mat-card>
+              <code class="text-sm text-gray-800 bg-white p-4 rounded-md">{{error.details}}</code>
+        </mat-card>
+    }
+</div>

@@ -1,0 +1,21 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Password@1"
+      ACCEPT_EULA: "1"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+volumes:
+  redis-data:
+  sqlserver-data:

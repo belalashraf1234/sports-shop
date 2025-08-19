@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <input matInput [type]="type" [formControl]="control" />
+    @if(control.hasError('required') && control.touched){
+        <mat-error>{{label}} is required</mat-error>
+     }
+     @if(control.hasError('email') && control.touched){
+        <mat-error>Email is not valid</mat-error>
+     }
+     @if(control.hasError('minlength') && control.touched){
+        <mat-error>{{label}} must be at least {{control.errors?.['minlength'].requiredLength}} characters</mat-error>
+     }
+    
+ </mat-form-field>
+

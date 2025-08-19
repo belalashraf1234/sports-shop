@@ -1,0 +1,6 @@
+@AutoEcommerce_HostAddress = http://localhost:5001
+
+GET {{AutoEcommerce_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

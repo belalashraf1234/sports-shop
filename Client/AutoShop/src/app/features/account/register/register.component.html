@@ -1,0 +1,125 @@
+<mat-card class="max-w-lg mx-auto mt-32 p-8 bg-white">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+         <div class="text-center mb-6">
+            <h2 class="text-2xl font-semibold text-primary">Create Account</h2>
+            <p class="text-gray-600 mt-2">Join us to get started with your shopping journey</p>
+         </div>
+
+         @if(validationErrors.length){
+            <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div class="flex items-center mb-2">
+                    <mat-icon class="text-red-500 mr-2">error_outline</mat-icon>
+                    <h3 class="text-red-700 font-medium">Please fix the following errors:</h3>
+                </div>
+                <ul class="list-disc px-6 text-red-600">
+                    @for(error of validationErrors; track error){
+                        <li class="mb-1">{{error}}</li>
+                    }
+                </ul>
+            </div>
+         }
+
+         <div class="space-y-4">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" placeholder="Enter your first name" formControlName="FirstName" />
+                <mat-icon matSuffix>person</mat-icon>
+                @if(registerForm.get('FirstName')?.hasError('required') && registerForm.get('FirstName')?.touched){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        First name is required
+                    </mat-error>
+                }
+                @if(registerForm.get('FirstName')?.hasError('minlength')){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        First name must be at least 2 characters
+                    </mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" placeholder="Enter your last name" formControlName="LastName" />
+                <mat-icon matSuffix>person</mat-icon>
+                @if(registerForm.get('LastName')?.hasError('required') && registerForm.get('LastName')?.touched){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        Last name is required
+                    </mat-error>
+                }
+                @if(registerForm.get('LastName')?.hasError('minlength')){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        Last name must be at least 2 characters
+                    </mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="Enter your email" formControlName="Email" />
+                <mat-icon matSuffix>email</mat-icon>
+                @if(registerForm.get('Email')?.hasError('required') && registerForm.get('Email')?.touched){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        Email is required
+                    </mat-error>
+                }
+                @if(registerForm.get('Email')?.hasError('email')){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        Please enter a valid email address
+                    </mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Enter your password" formControlName="Password" />
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                @if(registerForm.get('Password')?.hasError('required') && registerForm.get('Password')?.touched){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        Password is required
+                    </mat-error>
+                }
+                @if(registerForm.get('Password')?.hasError('minlength')){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        Password must be at least 8 characters
+                    </mat-error>
+                }
+                @if(registerForm.get('Password')?.hasError('pattern')){
+                    <mat-error>
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character
+                    </mat-error>
+                }
+            </mat-form-field>
+
+            <div class="mt-4">
+                <mat-checkbox formControlName="terms" color="primary" class="w-full">
+                    I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>
+                </mat-checkbox>
+                @if(registerForm.get('terms')?.hasError('required') && registerForm.get('terms')?.touched){
+                    <div class="text-red-500 text-sm mt-1 flex items-center">
+                        <mat-icon class="text-sm mr-1">error</mat-icon>
+                        You must accept the terms and conditions
+                    </div>
+                }
+            </div>
+
+            <button [disabled]="registerForm.invalid" mat-flat-button color="primary" type="submit" class="w-full py-2 mt-6">
+                <mat-icon class="mr-2">how_to_reg</mat-icon>
+                Create Account
+            </button>
+
+            <div class="mt-4 text-center">
+                <p class="text-gray-600">Already have an account? <a routerLink="/account/login" class="text-primary hover:underline">Sign in</a></p>
+            </div>
+         </div>
+    </form>
+</mat-card>
